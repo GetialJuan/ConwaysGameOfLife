@@ -1,0 +1,53 @@
+version: "3"
+services:
+  scheduler:
+    image: daskdev/dask:latest
+    command: ["dask-scheduler"]
+    ports:
+      - "8786:8786"
+    networks:
+      - dask-net
+
+  worker1:
+    image: daskdev/dask:latest
+    command: ["dask-worker", "tcp://scheduler:8786"]
+    depends_on:
+      - scheduler
+    networks:
+      - dask-net
+    environment:
+      - DASK_WORKER_PROCESSES=8
+
+  worker2:
+    image: daskdev/dask:latest
+    command: ["dask-worker", "tcp://scheduler:8786"]
+    depends_on:
+      - scheduler
+    networks:
+      - dask-net
+    environment:
+      - DASK_WORKER_PROCESSES=8
+
+  worker3:
+    image: daskdev/dask:latest
+    command: ["dask-worker", "tcp://scheduler:8786"]
+    depends_on:
+      - scheduler
+    networks:
+      - dask-net
+    environment:
+      - DASK_WORKER_PROCESSES=8
+
+  worker4:
+    image: daskdev/dask:latest
+    command: ["dask-worker", "tcp://scheduler:8786"]
+    depends_on:
+      - scheduler
+    networks:
+      - dask-net
+    environment:
+      - DASK_WORKER_PROCESSES=8
+
+networks:
+  dask-net:
+    driver: bridge
